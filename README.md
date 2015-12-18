@@ -13,7 +13,7 @@ LIBRARIES USED
 INSTALLATION
 ------------
 
-Extract the archive file downloaded from [master.zip](https://github.com/febfeb/yii2-adminlte-basic/archive/master.zip) to a directory under the Web root.
+Extract the archive file downloaded from [master.zip](https://github.com/febfeb/yii2-ready-basic/archive/master.zip) to a directory under the Web root.
 
 Create a database named `yii2-basic-ready` and import an SQL file from directory `db/yii2-basic-ready.sql`
 
