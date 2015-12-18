@@ -49,6 +49,7 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
             ),
         ],
+        /*
         'view' => [
             'theme' => [
                 'pathMap' => [
@@ -56,6 +57,7 @@ $config = [
                 ],
             ],
         ],
+        */
         'db' => require(__DIR__ . '/db.php'),
     ],
     'params' => $params,

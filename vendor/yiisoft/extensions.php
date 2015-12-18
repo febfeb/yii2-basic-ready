@@ -84,4 +84,41 @@ return array (
       '@dmstr' => $vendorDir . '/dmstr/yii2-adminlte-asset',
     ),
   ),
+  'dmstr/yii2-db' => 
+  array (
+    'name' => 'dmstr/yii2-db',
+    'version' => '0.2.0.0',
+    'alias' => 
+    array (
+      '@dmstr/db' => $vendorDir . '/dmstr/yii2-db/db',
+    ),
+  ),
+  'dmstr/yii2-helpers' => 
+  array (
+    'name' => 'dmstr/yii2-helpers',
+    'version' => '0.0.3.0',
+    'alias' => 
+    array (
+      '@dmstr/helpers' => $vendorDir . '/dmstr/yii2-helpers',
+    ),
+  ),
+  'dmstr/yii2-bootstrap' => 
+  array (
+    'name' => 'dmstr/yii2-bootstrap',
+    'version' => '0.1.1.0',
+    'alias' => 
+    array (
+      '@dmstr/bootstrap' => $vendorDir . '/dmstr/yii2-bootstrap',
+    ),
+  ),
+  'schmunk42/yii2-giiant' => 
+  array (
+    'name' => 'schmunk42/yii2-giiant',
+    'version' => '0.5.0.0',
+    'alias' => 
+    array (
+      '@schmunk42/giiant' => $vendorDir . '/schmunk42/yii2-giiant/src',
+    ),
+    'bootstrap' => 'schmunk42\\giiant\\Bootstrap',
+  ),
 );

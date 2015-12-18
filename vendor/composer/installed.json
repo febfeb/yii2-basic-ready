@@ -1180,5 +1180,183 @@
             "bower-asset-main": "dist/typeahead.bundle.js"
         },
         "installation-source": "dist"
+    },
+    {
+        "name": "dmstr/yii2-db",
+        "version": "0.2.0",
+        "version_normalized": "0.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dmstr/yii2-db.git",
+            "reference": "066ce45be3e2e2b48286ef96250cdc53ae119075"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dmstr/yii2-db/zipball/066ce45be3e2e2b48286ef96250cdc53ae119075",
+            "reference": "066ce45be3e2e2b48286ef96250cdc53ae119075",
+            "shasum": ""
+        },
+        "time": "2015-01-13 03:03:29",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "dmstr\\db\\": "db/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Tobias Munk",
+                "email": "tobias@diemeisterei.de"
+            }
+        ],
+        "description": "Database extensions",
+        "keywords": [
+            "database",
+            "db",
+            "extension",
+            "yii2"
+        ]
+    },
+    {
+        "name": "dmstr/yii2-helpers",
+        "version": "0.0.3",
+        "version_normalized": "0.0.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dmstr/yii2-helpers.git",
+            "reference": "beb7362357f9f4210d2194c7b4eedc0603e351f7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dmstr/yii2-helpers/zipball/beb7362357f9f4210d2194c7b4eedc0603e351f7",
+            "reference": "beb7362357f9f4210d2194c7b4eedc0603e351f7",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "*"
+        },
+        "time": "2015-07-02 08:38:46",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "dmstr\\helpers\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Sergej Kunz",
+                "email": "s.kunz@herzogkommunikation.de"
+            }
+        ],
+        "description": "Yii2 Helpers",
+        "keywords": [
+            "extension",
+            "yii2"
+        ]
+    },
+    {
+        "name": "dmstr/yii2-bootstrap",
+        "version": "0.1.1",
+        "version_normalized": "0.1.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dmstr/yii2-bootstrap.git",
+            "reference": "96d556196d7dccb79e9dc465b8bc228c883c1111"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dmstr/yii2-bootstrap/zipball/96d556196d7dccb79e9dc465b8bc228c883c1111",
+            "reference": "96d556196d7dccb79e9dc465b8bc228c883c1111",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "2.0.*"
+        },
+        "time": "2015-02-10 03:13:45",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "dmstr\\bootstrap\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Christopher Stebe",
+                "email": "c.stebe@herzogkommunikation.de"
+            }
+        ],
+        "description": "yii2 bootstrap components and extensions from diemeisterei GmbH",
+        "keywords": [
+            "bootstrap",
+            "extension",
+            "yii2"
+        ]
+    },
+    {
+        "name": "schmunk42/yii2-giiant",
+        "version": "0.5.0",
+        "version_normalized": "0.5.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/schmunk42/yii2-giiant.git",
+            "reference": "cdc442afc6c16016fba850c74e1128f825ba5f1d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/schmunk42/yii2-giiant/zipball/cdc442afc6c16016fba850c74e1128f825ba5f1d",
+            "reference": "cdc442afc6c16016fba850c74e1128f825ba5f1d",
+            "shasum": ""
+        },
+        "require": {
+            "dmstr/yii2-bootstrap": "*",
+            "dmstr/yii2-db": "*",
+            "dmstr/yii2-helpers": "*",
+            "yiisoft/yii2": "~2.0.4",
+            "yiisoft/yii2-gii": "~2.0.4"
+        },
+        "time": "2015-09-24 00:00:42",
+        "type": "yii2-extension",
+        "extra": {
+            "bootstrap": "schmunk42\\giiant\\Bootstrap"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "schmunk42\\giiant\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Tobias Munk",
+                "email": "schmunk@usrbin.de",
+                "homepage": "http://www.usrbin.de"
+            }
+        ],
+        "description": "Gii CRUD generator for Yii 2 Framework",
+        "homepage": "https://github.com/schmunk42/yii2-giiant",
+        "keywords": [
+            "crud",
+            "gii",
+            "yii2"
+        ]
     }
 ]
