@@ -127,28 +127,28 @@ INSERT INTO `role_action` (`id`, `role_id`, `action_id`) VALUES
 (52,	2,	31),
 (53,	2,	32),
 (54,	2,	33),
-(55,	3,	12),
-(56,	3,	13),
-(57,	3,	14),
-(58,	3,	15),
-(59,	3,	16),
-(60,	3,	17),
-(61,	3,	18),
-(62,	3,	19),
-(63,	3,	20),
-(64,	3,	21),
-(65,	3,	22),
-(66,	3,	23),
-(67,	3,	24),
-(68,	3,	25),
-(69,	3,	26),
-(70,	3,	27),
-(71,	3,	28),
-(72,	3,	29),
-(73,	3,	30),
-(74,	3,	31),
-(75,	3,	32),
-(76,	3,	33);
+(98,	3,	12),
+(99,	3,	13),
+(100,	3,	14),
+(101,	3,	15),
+(102,	3,	16),
+(103,	3,	17),
+(104,	3,	18),
+(105,	3,	19),
+(106,	3,	20),
+(107,	3,	21),
+(108,	3,	22),
+(109,	3,	23),
+(110,	3,	24),
+(111,	3,	25),
+(112,	3,	26),
+(113,	3,	27),
+(114,	3,	28),
+(115,	3,	29),
+(116,	3,	30),
+(117,	3,	31),
+(118,	3,	32),
+(119,	3,	33);
 
 DROP TABLE IF EXISTS `role_menu`;
 CREATE TABLE `role_menu` (
@@ -173,11 +173,11 @@ INSERT INTO `role_menu` (`id`, `role_id`, `menu_id`) VALUES
 (58,	2,	3),
 (59,	2,	4),
 (60,	2,	5),
-(61,	3,	1),
-(62,	3,	2),
-(63,	3,	3),
-(64,	3,	4),
-(65,	3,	5);
+(71,	3,	1),
+(72,	3,	2),
+(73,	3,	3),
+(74,	3,	4),
+(75,	3,	5);
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -187,8 +187,8 @@ CREATE TABLE `user` (
   `name` varchar(50) NOT NULL,
   `role_id` int(11) NOT NULL,
   `photo_url` varchar(255) DEFAULT NULL,
-  `last_login` datetime NOT NULL,
-  `last_logout` datetime NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  `last_logout` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `role_id` (`role_id`),
@@ -196,6 +196,7 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `user` (`id`, `username`, `password`, `name`, `role_id`, `photo_url`, `last_login`, `last_logout`) VALUES
-(1,	'admin',	'21232f297a57a5a743894a0e4a801fc3',	'Administrator',	1,	'ID6jM8Az7Yh_R6LR44Ezh02VECKTQ_Ya.png',	'2015-12-16 22:35:47',	'2015-12-16 22:35:47');
+(1,	'admin',	'21232f297a57a5a743894a0e4a801fc3',	'Administrator',	1,	'ID6jM8Az7Yh_R6LR44Ezh02VECKTQ_Ya.png',	'2015-12-16 22:35:47',	'2015-12-16 22:35:47'),
+(2,	'user',	'ee11cbb19052e40b07aac0ca060c23ee',	'Regular User',	3,	'default.png',	NULL,	NULL);
 
--- 2015-12-18 12:45:26
+-- 2015-12-18 23:02:47

@@ -23,10 +23,11 @@ use \dmstr\bootstrap\Tabs;
         <div class="user-form">
 
             <?php $form = ActiveForm::begin([
-            'id' => 'User',
-            'layout' => 'horizontal',
-            'enableClientValidation' => true,
-            'errorSummaryCssClass' => 'error-summary alert alert-error'
+                'id' => 'User',
+                'layout' => 'horizontal',
+                'enableClientValidation' => true,
+                'errorSummaryCssClass' => 'error-summary alert alert-error',
+                'options' => ['enctype' => 'multipart/form-data'],
             ]
             );
             ?>
@@ -35,8 +36,7 @@ use \dmstr\bootstrap\Tabs;
                 <?php $this->beginBlock('main'); ?>
 
                 <p>
-                    
-			<?= $form->field($model, 'id')->textInput() ?>
+
 			<?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 			<?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
@@ -45,9 +45,25 @@ $form->field($model, 'role_id')->dropDownList(
     \yii\helpers\ArrayHelper::map(app\models\Role::find()->all(), 'id', 'name'),
     ['prompt' => 'Select']
 ); ?>
-			<?= $form->field($model, 'photo_url')->textInput(['maxlength' => true]) ?>
-			<?= $form->field($model, 'last_login')->textInput() ?>
-			<?= $form->field($model, 'last_logout')->textInput() ?>
+            <?= $form->field($model, 'photo_url')->widget(\kartik\widgets\FileInput::className(), [
+                'options' => ['accept' => 'image/*'],
+                'pluginOptions' => [
+                    'allowedFileExtensions' => ['jpg', 'png', 'jpeg', 'gif', 'bmp'],
+                    'maxFileSize' => 250,
+                ],
+            ]) ?>
+            <?php
+            if($model->photo_url != null){
+            ?>
+                <div class="form-group">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <?= Html::img(["uploads/".$model->photo_url], ["width"=>"150px"]); ?>
+                    </div>
+                </div>
+            <?php
+            }
+            ?>
+
                 </p>
                 <?php $this->endBlock(); ?>
                 

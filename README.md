@@ -10,6 +10,15 @@ LIBRARIES USED
 - [schmunk42/yii2-giiant](https://github.com/schmunk42/yii2-giiant) (For Model & CRUD generator)
 - [kartik-v/yii2-widgets](https://github.com/kartik-v/yii2-widgets) (For File Upload)
 	
+FEATURES
+--------
+- Login with user from database.
+- Logout
+- User Menu
+- Role Menu
+- Dynamic Menu
+- Dynamic RBAC
+
 
 INSTALLATION
 ------------

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Action;
 use app\models\Menu;
 use app\models\search\MenuSearch;
 use yii\web\Controller;

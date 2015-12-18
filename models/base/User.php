@@ -37,7 +37,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'name', 'role_id', 'last_login', 'last_logout'], 'required'],
+            [['username', 'password', 'name', 'role_id'], 'required'],
             [['role_id'], 'integer'],
             [['last_login', 'last_logout'], 'safe'],
             [['username', 'password', 'name'], 'string', 'max' => 50],

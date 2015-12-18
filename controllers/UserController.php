@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use \Yii;
+use app\models\Action;
 use app\models\User;
 use app\models\search\UserSearch;
 use yii\web\Controller;
@@ -9,6 +11,7 @@ use yii\web\HttpException;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
+use yii\web\UploadedFile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -74,7 +77,26 @@ class UserController extends Controller
 		$model = new User;
 
 		try {
-            if ($model->load($_POST) && $model->save()) {
+            if ($model->load($_POST) ) {
+                $model->password = md5($model->password);
+
+                $image = UploadedFile::getInstance($model, 'photo_url');
+                if ($image != NULL) {
+                    # store the source file name
+                    $model->photo_url = $image->name;
+                    $extension = end(explode(".", $image->name));
+
+                    # generate a unique file name
+                    $model->photo_url = Yii::$app->security->generateRandomString() . ".{$extension}";
+
+                    # the path to save file
+                    $path = Yii::getAlias("@app/web/uploads/") . $model->photo_url;
+                    $image->saveAs($path);
+                }else{
+                    $model->photo_url = "default.png";
+                }
+
+                $model->save();
                 return $this->redirect(Url::previous());
             } elseif (!\Yii::$app->request->isPost) {
                 $model->load($_GET);
