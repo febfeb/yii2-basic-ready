@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Role;
+use app\models\RoleAction;
 use app\models\RoleMenu;
 use app\models\search\RoleSearch;
 use yii\web\Controller;
@@ -157,6 +158,14 @@ class RoleController extends Controller
                 $roleMenu = new RoleMenu();
                 $roleMenu->role_id = $id;
                 $roleMenu->menu_id = $menu;
+                $roleMenu->save();
+            }
+            RoleAction::deleteAll(["role_id"=>$id]);
+            $actions = $_POST['action'];
+            foreach($actions as $action){
+                $roleMenu = new RoleAction();
+                $roleMenu->role_id = $id;
+                $roleMenu->action_id = $action;
                 $roleMenu->save();
             }
             \Yii::$app->session->addFlash("success", "Role ".$model->name." successfully updated.");

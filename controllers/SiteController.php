@@ -2,33 +2,23 @@
 
 namespace app\controllers;
 
+use app\components\NodeLogger;
+use app\components\RoleAccessBehaviour;
+use app\models\Action;
+use app\models\User;
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
 
     public function behaviors()
     {
-        return [
-            'as beforeRequest' => [
-                'class' => 'yii\filters\AccessControl',
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
+        //apply role_action table for privilege (doesn't apply to super admin)
+        return Action::getAccess($this->id);
     }
 
     public function actions()
@@ -47,6 +37,51 @@ class SiteController extends Controller
     public function actionIndex()
     {
         return $this->render('index');
+    }
+
+    public function actionProfile()
+    {
+        $model = User::find()->where(["id"=>Yii::$app->user->id])->one();
+        $oldMd5Password = $model->password;
+        $oldPhotoUrl = $model->photo_url;
+
+        $model->password = "";
+
+        if ($model->load($_POST)){
+            //password
+            if($model->password != ""){
+                $model->password = md5($model->password);
+            }else{
+                $model->password = $oldMd5Password;
+            }
+
+            # get the uploaded file instance
+            $image = UploadedFile::getInstance($model, 'photo_url');
+            if ($image != NULL) {
+                # store the source file name
+                $model->photo_url = $image->name;
+                $extension = end(explode(".", $image->name));
+
+                # generate a unique file name
+                $model->photo_url = Yii::$app->security->generateRandomString() . ".{$extension}";
+
+                # the path to save file
+                $path = Yii::getAlias("@app/web/uploads/") . $model->photo_url;
+                $image->saveAs($path);
+            }else{
+                $model->photo_url = $oldPhotoUrl;
+            }
+
+            if($model->save()){
+                Yii::$app->session->addFlash("success", "Profile successfully updated.");
+            }else{
+                Yii::$app->session->addFlash("danger", "Profile cannot updated.");
+            }
+            return $this->redirect(["profile"]);
+        }
+        return $this->render('profile', [
+            'model' => $model,
+        ]);
     }
 
     public function actionLogin()

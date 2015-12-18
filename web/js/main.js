@@ -5,5 +5,9 @@ $(function(){
             checkboxClass: 'icheckbox_minimal-blue',
             radioClass: 'iradio_minimal-blue'
         });
+
+        $("img").error(function(){
+            $(this).attr("src", baseUrl + "/uploads/default.png");
+        });
     });
 })

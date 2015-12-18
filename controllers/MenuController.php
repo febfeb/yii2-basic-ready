@@ -23,17 +23,8 @@ class MenuController extends Controller
 
     public function behaviors()
     {
-        return [
-            'as beforeRequest' => [
-                'class' => 'yii\filters\AccessControl',
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
+        //apply role_action table for privilege (doesn't apply to super admin)
+        return Action::getAccess($this->id);
     }
 	
 	/**

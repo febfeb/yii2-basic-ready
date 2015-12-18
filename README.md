@@ -8,6 +8,7 @@ LIBRARIES USED
 	
 - [dmstr/yii2-adminlte-asset](https://github.com/dmstr/yii2-adminlte-asset) (For Admin Template)
 - [schmunk42/yii2-giiant](https://github.com/schmunk42/yii2-giiant) (For Model & CRUD generator)
+- [kartik-v/yii2-widgets](https://github.com/kartik-v/yii2-widgets) (For File Upload)
 	
 
 INSTALLATION
@@ -24,3 +25,7 @@ http://localhost/yii2-basic-ready/web/
 ~~~
 
 You can login using username `admin` and password `admin`. Or if you want to add more user, you can change it inside `user` table.
+
+CONFIGURATION
+----
+You can change whether AdminLTE loads css and js from plugin theme or not inside `/assets/AdminLtePluginAsset.php`

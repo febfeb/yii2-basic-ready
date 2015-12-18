@@ -1,7 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use \yii\base\Module;
 use \yii\bootstrap\ActiveForm;
+use \yii\helpers\Inflector;
 
 /**
  * @var yii\web\View $this
@@ -19,36 +21,77 @@ $this->params['breadcrumbs'][] = ['label' => "Set Menu untuk ".$model->name, 'ur
     </div>
     <div class="box-body">
         <?php
-        class RoleClass {
-            public static $role_id;
-        }
+        function isChecked($role_id, $menu_id){
 
-        RoleClass::$role_id = $model->id;
-
-        function isChecked($menu_id){
-
-            $role_menu = \app\models\RoleMenu::find()->where(["menu_id"=>$menu_id, "role_id"=>RoleClass::$role_id])->one();
+            $role_menu = \app\models\RoleMenu::find()->where(["menu_id"=>$menu_id, "role_id"=>$role_id])->one();
             if($role_menu){
                 return TRUE;
             }
             return FALSE;
         }
 
-        function getAllChild($parent_id, $level = 0){
+        function hasAccessToAction($role_id, $action_id){
+            $role_menu = \app\models\RoleAction::find()->where(["action_id"=>$action_id, "role_id"=>$role_id])->one();
+            if($role_menu){
+                return TRUE;
+            }
+            return FALSE;
+        }
+
+        function showCheckbox($name, $value, $label, $checked = FALSE){
+            ?>
+            <label>
+                <input type="checkbox" name="<?= $name ?>" value="<?= $value ?>" class="minimal actions" <?= $checked ? "checked" : "" ?>>
+            </label>
+            <label style="padding: 0px 20px 0px 5px"> <?= $label; ?></label>
+            <?php
+        }
+
+        function getAllChild($role_id, $parent_id=NULL, $level = 0){
             foreach(\app\models\Menu::find()->where(["parent_id"=>$parent_id])->all() as $menu){
                 ?>
                     <div class="form-group" style="padding-left: <?= $level * 20 ?>px">
                         <label>
-                            <input type="checkbox" name="menu[]" value="<?= $menu->id ?>" class="minimal" <?= isChecked($menu->id) ? "checked" : "" ?>>
+                            <input type="checkbox" name="menu[]" value="<?= $menu->id ?>" class="minimal" <?= isChecked($role_id, $menu->id) ? "checked" : "" ?>>
                         </label>
                         <label style="padding-left: 10px"> <?= $menu->name; ?></label>
                     </div>
                 <?php
-                getAllChild($menu->id, $level + 1);
+
+                //Show All Actions
+                $camelName = Inflector::id2camel($menu->controller);
+                $fullControllerName = "app\\controllers\\".$camelName."Controller";
+                if(class_exists($fullControllerName)){
+                    $reflection = new ReflectionClass($fullControllerName);
+                    $methods = $reflection->getMethods();
+
+                    echo "<div class=\"form-group\" style=\"padding-left: ".($level * 20 + 10)."px;\">";
+                    echo "<label><input type=\"checkbox\" class=\"minimal select-all\" ></label><label style=\"padding: 0px 20px 0px 5px\"> Select All</label>";
+                    foreach($methods as $method){
+                        if(substr($method->name, 0, 6) == "action" && $method->name != "actions"){
+                            $camelAction = substr($method->name, 6);
+                            $id = Inflector::camel2id($camelAction);
+                            $name = Inflector::camel2words($camelAction);
+                            $action = \app\models\Action::find()->where(["action_id"=>$id, "controller_id"=>$menu->controller])->one();
+                            if($action == NULL){
+                                //If the action not in database, save it !
+                                $action = new \app\models\Action();
+                                $action->action_id = $id;
+                                $action->controller_id = $menu->controller;
+                                $action->name = $name;
+                                $action->save();
+                            }
+                            showCheckbox("action[]", $action->id, $name, hasAccessToAction($role_id, $action->id));
+                        }
+                    }
+                    echo "</div>";
+                }
+
+                getAllChild($role_id, $menu->id, $level + 1);
             }
         }
 
-        getAllChild(NULL);
+        getAllChild($model->id, NULL);
         ?>
 
     </div>
@@ -67,6 +110,15 @@ $this->params['breadcrumbs'][] = ['label' => "Set Menu untuk ".$model->name, 'ur
 
 $("#select_all_btn").click(function(){
     $(".minimal").iCheck("toggle");
+});
+
+$(".select-all").on("ifClicked", function(){
+
+    if($(this).prop("checked")){
+        $(this).closest(".form-group").find(".actions").iCheck("uncheck");
+    }else{
+        $(this).closest(".form-group").find(".actions").iCheck("check");
+    }
 });
 
 '); ?>
