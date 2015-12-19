@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <input type="tel" hidden /> <!-- disable chrome autofill -->
                         <?= $form->field($model, 'password')->passwordInput(['maxlength' => true, 'autocomplete' => "off"]) ?>
                         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-                        <?= $form->field($model, 'photo_url')->widget(\kartik\widgets\FileInput::className(), [
+                        <?= $form->field($model, 'photo_url')->widget(\kartik\file\FileInput::className(), [
                             'options' => ['accept' => 'image/*'],
                             'pluginOptions' => [
                                 'allowedFileExtensions' => ['jpg', 'png', 'jpeg', 'gif', 'bmp'],
