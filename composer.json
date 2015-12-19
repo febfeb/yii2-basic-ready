@@ -20,7 +20,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "dmstr/yii2-adminlte-asset": "2.2.4",
         "schmunk42/yii2-giiant": "@stable",
-        "kartik-v/yii2-widgets": "v3.4.0"
+        "kartik-v/yii2-widget-fileinput": "@dev"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

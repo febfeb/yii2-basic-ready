@@ -8,7 +8,7 @@ LIBRARIES USED
 	
 - [dmstr/yii2-adminlte-asset](https://github.com/dmstr/yii2-adminlte-asset) (For Admin Template)
 - [schmunk42/yii2-giiant](https://github.com/schmunk42/yii2-giiant) (For Model & CRUD generator)
-- [kartik-v/yii2-widgets](https://github.com/kartik-v/yii2-widgets) (For File Upload)
+- [kartik-v/yii2-widget-fileinput](https://github.com/kartik-v/yii2-widget-fileinput) (For File Upload)
 	
 FEATURES
 --------
