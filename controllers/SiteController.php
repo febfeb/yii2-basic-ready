@@ -5,8 +5,10 @@ namespace app\controllers;
 use app\components\NodeLogger;
 use app\components\RoleAccessBehaviour;
 use app\models\Action;
+use app\models\RegisterForm;
 use app\models\User;
 use Yii;
+use yii\db\Expression;
 use yii\web\Controller;
 use app\models\LoginForm;
 use app\models\ContactForm;
@@ -84,14 +86,40 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionRegister()
+    {
+        $this->layout = "main-login";
+
+        if (!\Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new RegisterForm();
+        if ($model->load(Yii::$app->request->post()) && $model->register()) {
+            Yii::$app->session->addFlash("success", "Register success, please login");
+            return $this->redirect(["site/login"]);
+        }
+        return $this->render('register', [
+            'model' => $model,
+        ]);
+    }
+
     public function actionLogin()
     {
+        $this->layout = "main-login";
+
         if (!\Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
+
+            //log last login column
+            $user = Yii::$app->user->identity;
+            $user->last_login = new Expression("NOW()");
+            $user->save();
+
             return $this->goBack();
         }
         return $this->render('login', [
@@ -101,6 +129,11 @@ class SiteController extends Controller
 
     public function actionLogout()
     {
+        //log last login column
+        $user = Yii::$app->user->identity;
+        $user->last_logout = new Expression("NOW()");
+        $user->save();
+
         Yii::$app->user->logout();
 
         return $this->goHome();

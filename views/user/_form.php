@@ -45,7 +45,7 @@ $form->field($model, 'role_id')->dropDownList(
     \yii\helpers\ArrayHelper::map(app\models\Role::find()->all(), 'id', 'name'),
     ['prompt' => 'Select']
 ); ?>
-            <?= $form->field($model, 'photo_url')->widget(\kartik\widgets\FileInput::className(), [
+            <?= $form->field($model, 'photo_url')->widget(\kartik\file\FileInput::className(), [
                 'options' => ['accept' => 'image/*'],
                 'pluginOptions' => [
                     'allowedFileExtensions' => ['jpg', 'png', 'jpeg', 'gif', 'bmp'],
