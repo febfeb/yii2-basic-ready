@@ -13,6 +13,7 @@ LIBRARIES USED
 FEATURES
 --------
 - Login with user from database.
+- Register a Membership
 - Logout
 - User Menu
 - Role Menu
