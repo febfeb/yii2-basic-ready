@@ -25,7 +25,7 @@ use \dmstr\bootstrap\Tabs;
             <?php $form = ActiveForm::begin([
                 'id' => 'User',
                 'layout' => 'horizontal',
-                'enableClientValidation' => true,
+                'enableClientValidation' => false,
                 'errorSummaryCssClass' => 'error-summary alert alert-error',
                 'options' => ['enctype' => 'multipart/form-data'],
             ]

@@ -63,7 +63,8 @@ class SiteController extends Controller
             if ($image != NULL) {
                 # store the source file name
                 $model->photo_url = $image->name;
-                $extension = end(explode(".", $image->name));
+                $arr = explode(".", $image->name);
+                $extension = end($arr);
 
                 # generate a unique file name
                 $model->photo_url = Yii::$app->security->generateRandomString() . ".{$extension}";

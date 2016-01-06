@@ -116,13 +116,47 @@ class UserController extends Controller
 	{
 		$model = $this->findModel($id);
 
-		if ($model->load($_POST) && $model->save()) {
-            return $this->redirect(Url::previous());
-		} else {
-			return $this->render('update', [
-				'model' => $model,
-			]);
-		}
+        $oldMd5Password = $model->password;
+        $oldPhotoUrl = $model->photo_url;
+
+        $model->password = "";
+
+        if ($model->load($_POST)){
+            //password
+            if($model->password != ""){
+                $model->password = md5($model->password);
+            }else{
+                $model->password = $oldMd5Password;
+            }
+
+            # get the uploaded file instance
+            $image = UploadedFile::getInstance($model, 'photo_url');
+            if ($image != NULL) {
+                # store the source file name
+                $model->photo_url = $image->name;
+                $arr = explode(".", $image->name);
+                $extension = end($arr);
+
+                # generate a unique file name
+                $model->photo_url = Yii::$app->security->generateRandomString() . ".{$extension}";
+
+                # the path to save file
+                $path = Yii::getAlias("@app/web/uploads/") . $model->photo_url;
+                $image->saveAs($path);
+            }else{
+                $model->photo_url = $oldPhotoUrl;
+            }
+
+            if($model->save()){
+                Yii::$app->session->addFlash("success", "Profile successfully updated.");
+            }else{
+                Yii::$app->session->addFlash("danger", "Profile cannot updated.");
+            }
+            return $this->redirect(["index"]);
+        }
+        return $this->render('update', [
+            'model' => $model,
+        ]);
 	}
 
 	/**

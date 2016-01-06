@@ -14,7 +14,7 @@ class Action extends BaseAction
         $rules = [];
         if($controllerId == "site"){
             $rules[] = [
-                'actions' => ['login', 'register', 'error'],
+                'actions' => ['login', 'register', 'error', 'logout'],
                 'allow' => true,
             ];
         }
