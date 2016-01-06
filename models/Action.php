@@ -20,11 +20,14 @@ class Action extends BaseAction
         }
 
         if(\Yii::$app->user->identity != NULL) {
-            $rules[] = [
-                'actions' => Action::getAllowedAction($controllerId, \Yii::$app->user->identity->role_id),
-                'allow' => true,
-                'roles' => ['@'],
-            ];
+            $allowed = Action::getAllowedAction($controllerId, \Yii::$app->user->identity->role_id);
+            if(count($allowed) != 0) {
+                $rules[] = [
+                    'actions' => $allowed,
+                    'allow' => true,
+                    'roles' => ['@'],
+                ];
+            }
         }
 
         $rules[] = [

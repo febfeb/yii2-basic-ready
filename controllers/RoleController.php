@@ -25,17 +25,8 @@ class RoleController extends Controller
 
     public function behaviors()
     {
-        return [
-            'as beforeRequest' => [
-                'class' => 'yii\filters\AccessControl',
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-        ];
+        //apply role_action table for privilege (doesn't apply to super admin)
+        return \app\models\Action::getAccess($this->id);
     }
 	
 	/**
@@ -162,11 +153,13 @@ class RoleController extends Controller
             }
             RoleAction::deleteAll(["role_id"=>$id]);
             $actions = $_POST['action'];
-            foreach($actions as $action){
-                $roleMenu = new RoleAction();
-                $roleMenu->role_id = $id;
-                $roleMenu->action_id = $action;
-                $roleMenu->save();
+            if(isset($actions)) {
+                foreach ($actions as $action) {
+                    $roleMenu = new RoleAction();
+                    $roleMenu->role_id = $id;
+                    $roleMenu->action_id = $action;
+                    $roleMenu->save();
+                }
             }
             \Yii::$app->session->addFlash("success", "Role ".$model->name." successfully updated.");
             return $this->redirect(["index"]);

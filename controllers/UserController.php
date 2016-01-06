@@ -3,13 +3,11 @@
 namespace app\controllers;
 
 use \Yii;
-use app\models\Action;
 use app\models\User;
 use app\models\search\UserSearch;
 use yii\web\Controller;
 use yii\web\HttpException;
 use yii\helpers\Url;
-use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 use yii\web\UploadedFile;
 
@@ -27,7 +25,7 @@ class UserController extends Controller
     public function behaviors()
     {
         //apply role_action table for privilege (doesn't apply to super admin)
-        return Action::getAccess($this->id);
+        return \app\models\Action::getAccess($this->id);
     }
 	
 	/**

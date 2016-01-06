@@ -2,7 +2,7 @@
 
 namespace app\controllers;
 
-use app\components\NodeLogger;
+//use app\components\NodeLogger;
 use app\components\RoleAccessBehaviour;
 use app\models\Action;
 use app\models\RegisterForm;
@@ -19,6 +19,7 @@ class SiteController extends Controller
 
     public function behaviors()
     {
+        //NodeLogger::sendLog(Action::getAccess($this->id));
         //apply role_action table for privilege (doesn't apply to super admin)
         return Action::getAccess($this->id);
     }
